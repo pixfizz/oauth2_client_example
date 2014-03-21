@@ -1,1 +1,27 @@
-<%= pretty_json @json %>
+<table>
+<% if @json.is_a? Array %>
+  <thead><tr>
+    <% @json.first.keys.each do |key| %>
+      <td><b><%= key %></b></td>
+    <% end %>
+  </tr></thead>
+
+  <% @json.each do |json_line| %>
+    <tr>
+      <% json_line.values.each do |value| %>
+        <td><%= value %></td>
+      <% end %>
+    </tr>
+  <% end %>
+
+<% else %>
+
+  <% @json.each do |key, value| %>
+    <tr>
+      <td><b><%= key %></b></td>
+      <td><%= value %></td>
+    </tr>
+  <% end %>
+
+<% end %>
+</table>
