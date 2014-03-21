@@ -31,12 +31,14 @@ class DoorkeeperClient < Sinatra::Base
   end
 
   def client(token_method = :post)
+    client_id = ENV['OAUTH2_CLIENT_ID'] || "JCmF3BKia4EeMae8X4EymKQDPhP0UhQHPQwLbzgr"
+    client_secret = ENV['OAUTH2_CLIENT_SECRET'] || "2g5uCp5WqwhLlftuDv9Y2k1Dk6QMkTMEItwcfB2Q"
     OAuth2::Client.new(
-      ENV['OAUTH2_CLIENT_ID'],
-      ENV['OAUTH2_CLIENT_SECRET'],
-      :site           => ENV['SITE'] || "http://localhost:3001",
-      :authorize_url  => ENV['SITE_AUTHORIZE_URL'] || "http://localhost:3001/v1/oauth/authorize",
-      :token_url      => ENV['SITE_TOKEN_URL'],
+      client_id,
+      client_secret,
+      :site           => ENV['SITE'] || "http://demo.pixfizz.com/v1",
+      :authorize_url  => ENV['SITE_AUTHORIZE_URL'] || "http://demo.pixfizz.com/v1/oauth/authorize",
+      :token_url      => ENV['SITE_TOKEN_URL'] || "http://demo.pixfizz.com/v1/oauth/token",
       :token_method   => token_method
     )
   end
