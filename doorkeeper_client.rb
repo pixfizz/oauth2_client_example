@@ -5,6 +5,7 @@ require "./lib/html_renderer"
 load 'env.rb' if File.exists?('env.rb')
 
 class DoorkeeperClient < Sinatra::Base
+  enable :logging
   enable :sessions
 
   helpers do
@@ -69,6 +70,11 @@ class DoorkeeperClient < Sinatra::Base
     new_token = client.auth_code.get_token(params[:code], :redirect_uri => redirect_uri)
     session[:access_token]  = new_token.token
     session[:refresh_token] = new_token.refresh_token
+
+    # Get current user's ID
+    response = access_token.get("/v1/users/me")
+    json = JSON.parse(response.body)
+    session[:user_id] = json['id']
     redirect '/'
   end
 
@@ -79,21 +85,13 @@ class DoorkeeperClient < Sinatra::Base
     redirect '/'
   end
 
-  get '/explore/users/:api' do
-    raise "Please call a valid endpoint" unless params[:api]
-    begin
-      response = access_token.get("/v1/users/#{params[:api]}")
-      @json = JSON.parse(response.body)
-      erb :explore, :layout => !request.xhr?
-    rescue OAuth2::Error => @error
-      erb :error, :layout => !request.xhr?
-    end
-  end
+  get '/explore/*' do
+    raise "Please call a valid endpoint" unless params[:splat]
+    
+    logger.info "Requesting URL #{params[:splat][0]}"
 
-  get '/explore/:api' do
-    raise "Please call a valid endpoint" unless params[:api]
     begin
-      response = access_token.get("/v1/#{params[:api]}")
+      response = access_token.get("/v1/#{params[:splat][0]}")
       @json = JSON.parse(response.body)
       erb :explore, :layout => !request.xhr?
     rescue OAuth2::Error => @error
