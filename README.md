@@ -1,14 +1,16 @@
-# Pixfizz Example OAuth API app
+# README: Pixfizz OAuth API example app
 
 This app is designed to demonstrate Pixfizz's use of OAuth to authenticate API calls.
+
+It's written with the Ruby microframework, [Sinatra](http://www.sinatrarb.com/) and uses [OAuth 2.0](https://github.com/intridea/oauth2) for OAuth interactions.
+
+If you have any issues with this app or setting it or ruby up, please [make a new issue on our tracker](https://github.com/pixfizz/oauth2_client_example/issues) and we'll help you out.
 
 Pixfizz employs [OAuth 2.0 draft 10](http://tools.ietf.org/html/draft-ietf-oauth-v2-10) for authentication. We also support basic plain text HTTP authentication.
 
 It is suggested that in a production environment, you communicate with us using HTTPS, but it is not a requirement.
 
-It's written with the Ruby microframework, [Sinatra](http://www.sinatrarb.com/) and uses [OAuth 2.0](https://github.com/intridea/oauth2) for OAuth interactions. 
-
-## Installing (after installing ruby)
+## Installing (after installing ruby 1.9.3)
 
     $ git clone git://github.com/pixfizz/oauth2_client_example.git
 

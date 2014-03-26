@@ -2,9 +2,9 @@
   <div class="row">
     <div class="span16">
       <% unless signed_in? %>
-        <h2>Explore the API</h2>
-        <h3>Sign in first to explore the provider's API</h3>
-        <p><a href="/sign_in" class="btn primary">Sign in with OAuth 2 provider »</a></p>
+        <h2>Explore the Pixfizz API</h2>
+        <h3>Sign in first to explore Pixfizz's API</h3>
+        <p><a href="/sign_in" class="btn primary">Sign into your OAuth Application»</a></p>
       <% end %>
     </div>
   </div>
@@ -14,11 +14,13 @@
   <div class="row">
     <div class="span16">
       <% if signed_in? %>
-        <h2>Explore the API</h2>
+        <h2>Explore the Pixfizz API</h2>
 
         <div class="well">
+          <a href="/explore/users/<%= session[:user_id] %>/books.json" class="btn" data-explore>Books</a>
+          <a href="/explore/users/<%= session[:user_id] %>/addresses.json" class="btn" data-explore>Addresses</a>
           <a href="/explore/users/<%= session[:user_id] %>/galleries.json" class="btn" data-explore>Galleries</a>
-          <a href="/explore/users/me.json" class="btn" data-explore>Profiles</a>
+          <a href="/explore/users/me.json" class="btn" data-explore>Me</a>
           <a href="/sign_out" class="btn primary">Sign out</a>
         </div>
 
@@ -35,7 +37,6 @@
 <section>
   <div class="row">
     <div class="span16">
-    <h2>Readme</h2>
     <%= markdown_readme %>
     </div>
   </div>
